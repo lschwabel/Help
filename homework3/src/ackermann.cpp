@@ -21,7 +21,7 @@ void DiffCallback(const geometry_msgs::TwistConstPtr& msg)
   std_msgs::Float64 Steering;
 
   double dsteering = WheelTireRatio*(atan((L*psydot)/vel));
-  CmdVel.data = msg -> linear.x;
+  CmdVel.data = vel;
   Steering.data = dsteering;
   CmdVelpub.publish(CmdVel);
   Steeringpub.publish(Steering);
@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 
   
 
-  CmdVelpub = node.advertise<geometry_msgs::Twist>("/audibot/cmd_vel/",1);
+  CmdVelpub = node.advertise<std_msgs::Float64>("/audibot/cmd_vel/",1);
 
   Steeringpub = node.advertise<std_msgs::Float64>("/audibot/steering_cmd",1);
   
